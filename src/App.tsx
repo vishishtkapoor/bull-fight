@@ -1,4 +1,3 @@
-import React from 'react';
 import { Bull } from './components/Bull';
 import { GameArea } from './components/GameArea';
 import { useGame } from './hooks/useGame';
@@ -16,8 +15,8 @@ function App() {
         onRightClick={pushRight}
       />
       
-      <Bull position={50 - (50 - leftPosition) / 2} />
-      <Bull position={50 + (50 - leftPosition) / 2} isFlipped />
+      <Bull position={leftPosition} />
+      <Bull position={leftPosition} isFlipped />
 
       {winner && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/50">

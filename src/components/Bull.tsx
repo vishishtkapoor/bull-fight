@@ -10,8 +10,8 @@ export const Bull: React.FC<BullProps> = ({ position, isFlipped = false }) => {
     <div 
       className="absolute transition-all duration-300"
       style={{ 
-        left: `${position}%`,
-        transform: `translate(-50%, -50%) ${isFlipped ? 'scaleX(-1)' : ''}`,
+        left: `${isFlipped ? 100 - position : position}%`,
+        transform: `translate(${isFlipped ? '50%' : '-50%'}, -50%) ${isFlipped ? 'scaleX(-1)' : ''}`,
         top: '50%',
       }}
     >

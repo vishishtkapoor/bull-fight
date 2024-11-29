@@ -2,8 +2,8 @@ import { useState, useCallback, useEffect } from 'react';
 import { useWebSocket } from './useWebSocket';
 
 const PUSH_AMOUNT = 2;
-const MIN_POSITION = 10;
-const MAX_POSITION = 90;
+const MIN_POSITION = 25; // Increased minimum to prevent bulls from going too far
+const MAX_POSITION = 75; // Decreased maximum to prevent bulls from going too far
 const CENTER_POSITION = 50;
 
 export const useGame = () => {
@@ -18,11 +18,10 @@ export const useGame = () => {
 
   const onPush = useCallback((side: string) => {
     setLeftPosition(prev => {
-      if (side === 'left') {
-        return Math.min(prev + PUSH_AMOUNT, MAX_POSITION);
-      } else {
-        return Math.max(prev - PUSH_AMOUNT, MIN_POSITION);
-      }
+      const newPosition = side === 'left' 
+        ? Math.min(prev + PUSH_AMOUNT, MAX_POSITION)
+        : Math.max(prev - PUSH_AMOUNT, MIN_POSITION);
+      return newPosition;
     });
   }, []);
 
@@ -35,16 +34,16 @@ export const useGame = () => {
   }, [side]);
 
   const pushLeft = useCallback(() => {
-    if (playerSide === 'left') {
+    if (playerSide === 'left' && leftPosition < MAX_POSITION) {
       push();
     }
-  }, [playerSide, push]);
+  }, [playerSide, leftPosition, push]);
 
   const pushRight = useCallback(() => {
-    if (playerSide === 'right') {
+    if (playerSide === 'right' && leftPosition > MIN_POSITION) {
       push();
     }
-  }, [playerSide, push]);
+  }, [playerSide, leftPosition, push]);
 
   const winner = leftPosition >= MAX_POSITION ? 'Red' : 
                 leftPosition <= MIN_POSITION ? 'Blue' : 
