@@ -22,7 +22,7 @@ export const GameArea: React.FC<GameAreaProps> = ({
       />
       <div
         className="h-full transition-all duration-300 cursor-pointer"
-        style={{ width: `${100 - leftPosition}%`, backgroundColor: '#3b82f6' }}
+        style={{ width: `${rightPosition}%`, backgroundColor: '#3b82f6' }}
         onClick={onRightClick}
       />
     </div>

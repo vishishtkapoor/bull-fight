@@ -4,20 +4,31 @@ import { useGame } from './hooks/useGame';
 import { Trophy, Loader2 } from 'lucide-react';
 
 function App() {
-  const { leftPosition, pushLeft, pushRight, winner, reset, gameStarted, playerSide } = useGame();
+  const {
+    leftPosition,
+    rightPosition,
+    pushLeft,
+    pushRight,
+    winner,
+    reset,
+    gameStarted,
+    playerSide,
+  } = useGame();
 
   return (
     <div className="relative h-screen w-full overflow-hidden">
       <GameArea
         leftPosition={leftPosition}
-        rightPosition={100 - leftPosition}
+        rightPosition={rightPosition}
         onLeftClick={pushLeft}
         onRightClick={pushRight}
       />
-      
-      <Bull position={leftPosition} />
-      <Bull position={leftPosition} isFlipped />
 
+      {/* Bulls */}
+      <Bull position={leftPosition} />
+      <Bull position={rightPosition} isFlipped />
+
+      {/* Winner Modal */}
       {winner && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/50">
           <div className="bg-white p-8 rounded-lg shadow-xl text-center">
@@ -33,6 +44,7 @@ function App() {
         </div>
       )}
 
+      {/* Waiting for Opponent */}
       {!gameStarted && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/50">
           <div className="bg-white p-8 rounded-lg shadow-xl text-center">
@@ -42,6 +54,7 @@ function App() {
         </div>
       )}
 
+      {/* Game Info */}
       {gameStarted && !winner && (
         <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-white px-6 py-3 rounded-full shadow-lg">
           <p className="text-lg font-semibold text-gray-800">
