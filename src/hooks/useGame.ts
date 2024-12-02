@@ -10,10 +10,14 @@ export const useGame = () => {
   const [leftPosition, setLeftPosition] = useState(CENTER_POSITION);
   const [gameStarted, setGameStarted] = useState(false);
   const [playerSide, setPlayerSide] = useState<string | null>(null);
+  const [leftClicks, setLeftClicks] = useState(0);
+  const [rightClicks, setRightClicks] = useState(0);
 
   const onGameStart = useCallback(() => {
     setGameStarted(true);
     setLeftPosition(CENTER_POSITION);
+    setLeftClicks(0);
+    setRightClicks(0);
   }, []);
 
   const onPush = useCallback((side: string) => {
@@ -23,6 +27,12 @@ export const useGame = () => {
         : Math.max(prev - PUSH_AMOUNT, MIN_POSITION);
       return newPosition;
     });
+        // Increment the click count based on the side
+        if (side === 'left') {
+          setLeftClicks((prev) => prev + 1);
+        } else if (side === 'right') {
+          setRightClicks((prev) => prev + 1);
+        }
   }, []);
 
   const { push, side } = useWebSocket(onGameStart, onPush);
@@ -53,6 +63,8 @@ export const useGame = () => {
   const reset = useCallback(() => {
     setLeftPosition(CENTER_POSITION);
     setGameStarted(false);
+    setLeftClicks(0);
+    setRightClicks(0);
   }, []);
 
   const rightPosition = 100 - leftPosition; // Dynamically calculate the right bull's position
@@ -66,5 +78,7 @@ export const useGame = () => {
     reset,
     gameStarted,
     playerSide,
+    leftClicks,
+    rightClicks,
   };
 };
