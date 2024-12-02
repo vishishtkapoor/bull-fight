@@ -11,13 +11,13 @@ export const Bull: React.FC<BullProps> = ({ position, isFlipped = false }) => {
       className="absolute transition-all duration-300"
       style={{
         left: `${isFlipped ? 100 - position : position}%`,
-        transform: `translate(${isFlipped ? '50%' : '-50%'}, -50%) ${isFlipped ? 'scaleX(-1)' : ''}`,
+        transform: `translate(${isFlipped ? '0%' : '-100%'}, -50%) ${isFlipped ? 'scaleX(-1)' : ''}`,
         top: '50%',
       }}
     >
       <svg
         width="100"
-        height="80"
+        height="100"
         viewBox="0 0 996 791"
         preserveAspectRatio="xMidYMid meet"
         className="drop-shadow-lg"

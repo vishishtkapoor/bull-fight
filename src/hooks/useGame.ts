@@ -35,13 +35,13 @@ export const useGame = () => {
 
   const pushLeft = useCallback(() => {
     if (playerSide === 'left' && leftPosition < MAX_POSITION) {
-      push('left');
+      push();
     }
   }, [playerSide, leftPosition, push]);
 
   const pushRight = useCallback(() => {
     if (playerSide === 'right' && leftPosition > MIN_POSITION) {
-      push('right');
+      push();
     }
   }, [playerSide, leftPosition, push]);
 
